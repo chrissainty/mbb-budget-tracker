@@ -1,0 +1,46 @@
+﻿@if (_addingExpense)
+{
+    <Entry Placeholder="Enter expense"
+           BackgroundColor="@(Color.FromHex("EDF2F7"))"
+           TextColor="@(Color.FromHex("2D3748"))"
+           PlaceholderColor="@(Color.FromHex("A0AEC0"))"
+           ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+           @bind-Text="_newExpense.Description"
+           HorizontalOptions="LayoutOptions.FillAndExpand" />
+
+    <Entry Placeholder="Enter amount"
+           BackgroundColor="@(Color.FromHex("EDF2F7"))"
+           TextColor="@(Color.FromHex("2D3748"))"
+           PlaceholderColor="@(Color.FromHex("A0AEC0"))"
+           ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+           @bind-Text="_newExpense.AmountAsString" />
+
+    <Button Text="Save"
+            OnClick="AddExpense" />
+}
+else
+{
+    <Button Text="+ Add"
+            OnClick="@(() => _addingExpense = true)"
+            Margin="new Thickness(0,20,0,0)" />
+}
+
+@code {
+    private bool _addingExpense;
+    private Expense _newExpense = new Expense();
+
+    [Parameter] public EventCallback<Expense> OnExpenseAdded { get; set; }
+
+    private async Task AddExpense()
+    {
+        if (decimal.TryParse(_newExpense.AmountAsString, out var amount))
+        {
+            _newExpense.Amount = amount;
+        }
+
+        await OnExpenseAdded.InvokeAsync(_newExpense);
+
+        _newExpense = new Expense();
+        _addingExpense = false;
+    }
+}
