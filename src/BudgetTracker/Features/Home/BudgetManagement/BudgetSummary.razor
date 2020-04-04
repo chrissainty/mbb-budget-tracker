@@ -1,32 +1,33 @@
-﻿<Label Text="YOUR BALANCE"
-       TextColor="@(Color.FromHex("718096"))"
-       HorizontalTextAlignment="TextAlignment.Center"
-       HorizontalOptions="LayoutOptions.FillAndExpand" />
-<Label Text="@($"{CurrentBalance.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")"
-       TextColor="@(Color.FromHex("2D3748"))"
-       FontSize="30"
-       VerticalTextAlignment="TextAlignment.Center"
-       HorizontalTextAlignment="TextAlignment.Center" />
+﻿<StackLayout>
 
-<Label Text="BUDGET"
-       FontSize="12"
-       TextColor="@(Color.FromHex("718096"))"
-       HorizontalOptions="LayoutOptions.FillAndExpand" />
-<Label Text="@($"{Budget.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")"
-       TextColor="@(Color.FromHex("38A169"))"
-       FontSize="20"
-       VerticalTextAlignment="TextAlignment.Center"
-       HorizontalTextAlignment="TextAlignment.Center" />
+    <StackLayout class="balanceContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
+        <Label Text="YOUR BALANCE"
+               HorizontalOptions="LayoutOptions.FillAndExpand" />
+        <Label class="currentBalance"
+               Text="@($"{CurrentBalance.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+    </StackLayout>
 
-<Label Text="EXPENSES"
-       FontSize="12"
-       TextColor="@(Color.FromHex("718096"))"
-       HorizontalOptions="LayoutOptions.FillAndExpand" />
-<Label Text="@($"{TotalExpenses.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")"
-       TextColor="@(Color.FromHex("E53E3E"))"
-       FontSize="20"
-       VerticalTextAlignment="TextAlignment.Center"
-       HorizontalTextAlignment="TextAlignment.Center" />
+    <StackLayout Orientation="StackOrientation.Horizontal">
+        
+        <StackLayout class="budgetContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
+            <Label class="textSmall"
+                   Text="BUDGET"
+                   HorizontalOptions="LayoutOptions.FillAndExpand" />
+            <Label class="currentBudget"
+                   Text="@($"{Budget.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+        </StackLayout>
+        
+        <StackLayout class="expensesContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
+            <Label Text="EXPENSES"
+                   class="textSmall"
+                   HorizontalOptions="LayoutOptions.FillAndExpand" />
+            <Label class="currentExpenses"
+                   Text="@($"{TotalExpenses.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+        </StackLayout>
+
+    </StackLayout>
+
+</StackLayout>
 
 @code {
     [Parameter] public decimal Budget { get; set; }

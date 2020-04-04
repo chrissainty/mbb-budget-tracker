@@ -1,0 +1,92 @@
+﻿entry {
+    font-size: 30;
+    color: #2D3748;
+}
+
+frame {
+    border-radius: 10;
+    background-color: #ffffff;
+}
+
+label {
+    color: #718096;
+    -xf-horizontal-text-alignment: center;
+}
+
+.textSmall {
+    font-size: 12;
+}
+
+.homeContainer {
+    padding: 10;
+    background-color: #EDF2F7;
+}
+
+.balanceContainer {
+    margin: 0 0 10 0;
+    -xf-spacing: 0;
+}
+
+    .balanceContainer > .currentBalance {
+        font-size: 30;
+        color: #2D3748;
+        -xf-vertical-text-alignment: center;
+        -xf-horizontal-text-alignment: center;
+    }
+
+.budgetContainer {
+    -xf-spacing: 0;
+}
+
+    .budgetContainer > .currentBudget {
+        font-size: 20;
+        color: #38A169;
+        -xf-vertical-text-alignment: center;
+        -xf-horizontal-text-alignment: center;
+    }
+
+.expensesContainer {
+    -xf-spacing: 0;
+}
+
+    .expensesContainer > .currentExpenses {
+        font-size: 20;
+        color: #E53E3E;
+        -xf-vertical-text-alignment: center;
+        -xf-horizontal-text-alignment: center;
+    }
+
+.currencySymbol {
+    color: #718096;
+    font-size: 30;
+    -xf-vertical-text-alignment: center;
+}
+
+.createExpenseContainer {
+    margin: 20 0 0 0;
+    -xf-orientation: horizontal;
+}
+
+    .createExpenseContainer > entry {
+        font-size: initial;
+        background-color: #EDF2F7;
+        color: #2D3748;
+        -xf-placeholder-color: #A0AEC0;
+    }
+
+.expenseListItem {
+    margin: 10 0 0 0;
+    -xf-orientation: horizontal;
+}
+
+    .expenseListItem > label {
+        font-size: 20;
+        color: #2D3748;
+    }
+
+.noExpenses {
+    font-size: 16;
+    color: #A0AEC0;
+    padding: 10;
+    -xf-horizontal-text-alignment: center;
+}

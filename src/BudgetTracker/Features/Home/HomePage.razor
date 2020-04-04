@@ -1,20 +1,36 @@
-﻿@if (_budget > 0)
-{
-    <BudgetSummary Budget="_budget"
-                   TotalExpenses="_expensesTotal"
-                   CurrentBalance="_currentBalance" />
-}
-else
-{
-    <SetBudget OnBudgetSet="@((newBudget) => _budget = newBudget)" />
-}
+﻿<StyleSheet Resource="BudgetTracker.css" Assembly="GetType().Assembly" />
 
-@if (_budget > 0)
-{
-    <Label Text="EXPENSES" />
-    <ExpenseList Expenses="_expenses" />
-    <CreateExpense OnExpenseAdded="@((newExpense) => _expenses.Add(newExpense))" />
-}
+<StackLayout class="homeContainer">
+
+    <Frame>
+        <StackLayout>
+            @if (_budget > 0)
+            {
+                <BudgetSummary Budget="_budget"
+                               TotalExpenses="_expensesTotal"
+                               CurrentBalance="_currentBalance" />
+            }
+            else
+            {
+                <SetBudget OnBudgetSet="@((newBudget) => _budget = newBudget)" />
+            }
+        </StackLayout>
+    </Frame>
+
+    @if (_budget > 0)
+    {
+        <Frame>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="EXPENSES" />
+                    <ExpenseList Expenses="_expenses" />
+                    <CreateExpense OnExpenseAdded="@((newExpense) => _expenses.Add(newExpense))" />
+                </StackLayout>
+            </ScrollView>
+        </Frame>
+    }
+
+</StackLayout>
 
 
 @code {
