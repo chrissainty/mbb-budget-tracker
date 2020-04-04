@@ -1,0 +1,20 @@
+﻿<Label Text="SET YOUR BUDGET" />
+<Label Text="£"
+       class="currencySymbol" />
+<Entry ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+       HorizontalOptions="LayoutOptions.FillAndExpand"
+       @bind-Text="Budget"
+       OnCompleted="@(() => OnBudgetSet.InvokeAsync(_budget))" />
+
+@code {
+
+    private decimal _budget;
+    public string Budget
+    {
+        get => _budget.ToString();
+        set => decimal.TryParse(value, out _budget);
+    }
+
+    [Parameter] public EventCallback<decimal> OnBudgetSet { get; set; }
+
+}

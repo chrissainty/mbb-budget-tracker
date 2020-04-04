@@ -1,0 +1,28 @@
+﻿@if (_budget > 0)
+{
+    <BudgetSummary Budget="_budget"
+                   TotalExpenses="_expensesTotal"
+                   CurrentBalance="_currentBalance" />
+}
+else
+{
+    <SetBudget OnBudgetSet="@((newBudget) => _budget = newBudget)" />
+}
+
+@if (_budget > 0)
+{
+    <Label Text="EXPENSES" />
+    <ExpenseList Expenses="_expenses" />
+    <CreateExpense OnExpenseAdded="@((newExpense) => _expenses.Add(newExpense))" />
+}
+
+
+@code {
+
+    private decimal _budget;
+    private List<Expense> _expenses = new List<Expense>();
+
+    private decimal _currentBalance => _budget - _expenses.Sum(x => x.Amount);
+    private decimal _expensesTotal => _expenses.Sum(x => x.Amount);
+
+}
