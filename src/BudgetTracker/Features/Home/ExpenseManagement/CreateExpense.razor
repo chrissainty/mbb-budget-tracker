@@ -1,28 +1,24 @@
 ﻿@if (_addingExpense)
 {
-    <Entry Placeholder="Enter expense"
-           BackgroundColor="@(Color.FromHex("EDF2F7"))"
-           TextColor="@(Color.FromHex("2D3748"))"
-           PlaceholderColor="@(Color.FromHex("A0AEC0"))"
-           ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
-           @bind-Text="_newExpense.Description"
-           HorizontalOptions="LayoutOptions.FillAndExpand" />
+    <StackLayout class="createExpenseContainer">
+        <Entry Placeholder="Enter expense"
+               HorizontalOptions="LayoutOptions.FillAndExpand"
+               ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+               @bind-Text="_newExpense.Description" />
 
-    <Entry Placeholder="Enter amount"
-           BackgroundColor="@(Color.FromHex("EDF2F7"))"
-           TextColor="@(Color.FromHex("2D3748"))"
-           PlaceholderColor="@(Color.FromHex("A0AEC0"))"
-           ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
-           @bind-Text="_newExpense.AmountAsString" />
+        <Entry Placeholder="Enter amount"
+               ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+               @bind-Text="_newExpense.AmountAsString" />
+    </StackLayout>
 
     <Button Text="Save"
             OnClick="AddExpense" />
 }
 else
 {
-    <Button Text="+ Add"
-            OnClick="@(() => _addingExpense = true)"
-            Margin="new Thickness(0,20,0,0)" />
+    <Button Margin="new Thickness(0,20,0,0)"
+            Text="+ Add"
+            OnClick="@(() => _addingExpense = true)" />
 }
 
 @code {

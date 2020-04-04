@@ -1,10 +1,14 @@
-﻿<Label Text="SET YOUR BUDGET" />
-<Label Text="£"
-       class="currencySymbol" />
-<Entry ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
-       HorizontalOptions="LayoutOptions.FillAndExpand"
-       @bind-Text="Budget"
-       OnCompleted="@(() => OnBudgetSet.InvokeAsync(_budget))" />
+﻿<StackLayout>
+    <Label Text="SET YOUR BUDGET" />
+    <StackLayout Orientation="StackOrientation.Horizontal">
+        <Label Text="£"
+               class="currencySymbol" />
+        <Entry ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
+               HorizontalOptions="LayoutOptions.FillAndExpand"
+               @bind-Text="Budget"
+               OnCompleted="@(() => OnBudgetSet.InvokeAsync(_budget))" />
+    </StackLayout>
+</StackLayout>
 
 @code {
 

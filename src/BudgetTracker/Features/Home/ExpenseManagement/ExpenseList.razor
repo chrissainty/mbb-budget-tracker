@@ -2,22 +2,17 @@
 {
     foreach (var expense in Expenses)
     {
-        <Label FontSize="20"
-               Text="@expense.Description"
-               TextColor="@(Color.FromHex("2D3748"))"
-               HorizontalOptions="LayoutOptions.StartAndExpand" />
-        <Label FontSize="20"
-               TextColor="@(Color.FromHex("2D3748"))"
-               Text="@($"- £{expense.Amount}")" />
+        <StackLayout class="expenseListItem">
+
+            <Label Text="@expense.Description" HorizontalOptions="LayoutOptions.StartAndExpand" />
+            <Label Text="@($"- £{expense.Amount}")" />
+
+        </StackLayout>
     }
 }
 else
 {
-    <Label Text="No expenses recorded"
-           TextColor="@(Color.FromHex("A0AEC0"))"
-           HorizontalTextAlignment="TextAlignment.Center"
-           FontSize="16"
-           Padding="new Thickness(10)" />
+    <Label class="noExpenses" Text="No expenses recorded" />
 }
 
 @code {
