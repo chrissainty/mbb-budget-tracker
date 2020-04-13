@@ -1,4 +1,6 @@
-﻿@if (_addingExpense)
+﻿@inject AppState AppState
+
+@if (_addingExpense)
 {
     <StackLayout class="createExpenseContainer">
         <Entry Placeholder="Enter expense"
@@ -25,8 +27,6 @@ else
     private bool _addingExpense;
     private Expense _newExpense = new Expense();
 
-    [Parameter] public EventCallback<Expense> OnExpenseAdded { get; set; }
-
     private async Task AddExpense()
     {
         if (decimal.TryParse(_newExpense.AmountAsString, out var amount))
@@ -34,7 +34,7 @@ else
             _newExpense.Amount = amount;
         }
 
-        await OnExpenseAdded.InvokeAsync(_newExpense);
+        await AppState.AddExpense(_newExpense);
 
         _newExpense = new Expense();
         _addingExpense = false;

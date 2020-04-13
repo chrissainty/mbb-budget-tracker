@@ -1,4 +1,6 @@
-﻿<StackLayout>
+﻿@inject AppState AppState
+
+<StackLayout>
     <Label Text="SET YOUR BUDGET" />
     <StackLayout Orientation="StackOrientation.Horizontal">
         <Label Text="£"
@@ -6,7 +8,7 @@
         <Entry ClearButtonVisibility="ClearButtonVisibility.WhileEditing"
                HorizontalOptions="LayoutOptions.FillAndExpand"
                @bind-Text="Budget"
-               OnCompleted="@(() => OnBudgetSet.InvokeAsync(_budget))" />
+               OnCompleted="@(async () => await AppState.SetBudget(_budget))" />
     </StackLayout>
 </StackLayout>
 
@@ -18,7 +20,4 @@
         get => _budget.ToString();
         set => decimal.TryParse(value, out _budget);
     }
-
-    [Parameter] public EventCallback<decimal> OnBudgetSet { get; set; }
-
 }
