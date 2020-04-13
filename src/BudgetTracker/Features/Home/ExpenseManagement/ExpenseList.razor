@@ -1,6 +1,9 @@
-﻿@if (Expenses.Any())
+﻿@inject AppState AppState
+@implements IDisposable
+
+@if (_expenses is object && _expenses.Any())
 {
-    foreach (var expense in Expenses)
+    foreach (var expense in _expenses)
     {
         <StackLayout class="expenseListItem">
 
@@ -16,5 +19,21 @@ else
 }
 
 @code {
-    [Parameter] public IEnumerable<Expense> Expenses { get; set; }
+
+    private IReadOnlyList<Expense> _expenses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateState();
+        AppState.OnChange += UpdateState;
+    }
+
+    public void Dispose() => AppState.OnChange -= UpdateState;
+
+    private async Task UpdateState()
+    {
+        _expenses = await AppState.GetExpenses();
+
+        StateHasChanged();
+    }
 }

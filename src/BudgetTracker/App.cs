@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.MobileBlazorBindings;
-using Microsoft.Extensions.Hosting;
-using Xamarin.Essentials;
+﻿using Microsoft.MobileBlazorBindings;
 using Xamarin.Forms;
 using BudgetTracker.Features.Home;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
 
 namespace BudgetTracker
 {
@@ -11,11 +11,14 @@ namespace BudgetTracker
     {
         public App()
         {
+            var database = new BudgetTrackerDb(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "budgettracker.db3"));
+            
             var host = MobileBlazorBindingsHost.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
                     // Register app-specific services
-                    //services.AddSingleton<AppState>();
+                    services.AddSingleton<BudgetTrackerDb>(database);
+                    services.AddSingleton<AppState>();
                 })
                 .Build();
 

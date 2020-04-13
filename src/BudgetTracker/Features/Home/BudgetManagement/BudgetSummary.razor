@@ -1,28 +1,31 @@
-﻿<StackLayout>
+﻿@inject AppState AppState
+@implements IDisposable
+
+<StackLayout>
 
     <StackLayout class="balanceContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
         <Label Text="YOUR BALANCE"
                HorizontalOptions="LayoutOptions.FillAndExpand" />
         <Label class="currentBalance"
-               Text="@($"{CurrentBalance.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+               Text="@($"{_currentBalance.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
     </StackLayout>
 
     <StackLayout Orientation="StackOrientation.Horizontal">
-        
+
         <StackLayout class="budgetContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
             <Label class="textSmall"
                    Text="BUDGET"
                    HorizontalOptions="LayoutOptions.FillAndExpand" />
             <Label class="currentBudget"
-                   Text="@($"{Budget.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+                   Text="@($"{_budget.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
         </StackLayout>
-        
+
         <StackLayout class="expensesContainer" HorizontalOptions="LayoutOptions.CenterAndExpand">
             <Label Text="EXPENSES"
                    class="textSmall"
                    HorizontalOptions="LayoutOptions.FillAndExpand" />
             <Label class="currentExpenses"
-                   Text="@($"{TotalExpenses.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
+                   Text="@($"{_totalExpenses.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB"))}")" />
         </StackLayout>
 
     </StackLayout>
@@ -30,7 +33,25 @@
 </StackLayout>
 
 @code {
-    [Parameter] public decimal Budget { get; set; }
-    [Parameter] public decimal CurrentBalance { get; set; }
-    [Parameter] public decimal TotalExpenses { get; set; }
+
+    private decimal _budget = 0;
+    private decimal _currentBalance = 0;
+    private decimal _totalExpenses = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateState();
+        AppState.OnChange += UpdateState;
+    }
+
+    public void Dispose() => AppState.OnChange -= UpdateState;
+
+    private async Task UpdateState()
+    {
+        _budget = await AppState.GetBudget();
+        _currentBalance = await AppState.GetCurrentBalance();
+        _totalExpenses = await AppState.GetTotalExpenses();
+
+        StateHasChanged();
+    }
 }
