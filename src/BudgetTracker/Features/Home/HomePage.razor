@@ -1,7 +1,18 @@
 ﻿@inject AppState AppState
 @implements IDisposable
 
-<StyleSheet Resource="BudgetTracker.css" Assembly="GetType().Assembly" />
+@if (theme == AppTheme.Light)
+{
+    <StyleSheet Resource="BudgetTrackerLight.css" Assembly="GetType().Assembly" />
+}
+else if (theme == AppTheme.Dark)
+{
+    <StyleSheet Resource="BudgetTrackerDark.css" Assembly="GetType().Assembly" />
+}
+else
+{
+    <StyleSheet Resource="BudgetTrackerLight.css" Assembly="GetType().Assembly" />
+}
 
 <StackLayout class="homeContainer">
 
@@ -36,9 +47,11 @@
 @code {
 
     private bool budgetSet;
+    private AppTheme theme;
 
     protected override async Task OnInitializedAsync()
     {
+        theme = AppInfo.RequestedTheme;
         await UpdateState();
         AppState.OnChange += UpdateState;
     }
